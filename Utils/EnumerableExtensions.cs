@@ -6,7 +6,7 @@ namespace Utils;
 
 public static class EnumerableExtensions
 {
-    public static IEnumerable<T> Single<T>(this T value)
+    public static IEnumerable<T> ToEnumerable<T>(this T value)
     {
         yield return value;
     }

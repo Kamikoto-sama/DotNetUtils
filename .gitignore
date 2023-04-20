@@ -1,6 +1,8 @@
 bin/
 obj/
 .idea/
+*/build/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+baget.env

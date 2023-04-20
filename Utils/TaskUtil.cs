@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Utils;
 
-public static class TaskUtils
+public static class TaskUtil
 {
     public static Task WhenAll(this IEnumerable<Task> tasks) => Task.WhenAll(tasks);
 

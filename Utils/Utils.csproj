@@ -3,6 +3,11 @@
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
+		<PackageId>Kami.Utils</PackageId>
+		<Title>Kami.Utils</Title>
+		<Authors>Kamikoto-sama</Authors>
+		<Description>Some usful C# extentions and other utils</Description>
+		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
 	<ItemGroup>

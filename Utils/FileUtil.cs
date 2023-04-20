@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Utils;
 
-public static class FileUtils
+public static class FileUtil
 {
     public static IEnumerable<string> Walk(string path)
     {

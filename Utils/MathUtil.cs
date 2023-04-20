@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace Utils;
 
-public static class MathUtils
+public static class MathUtil
 {
     public static TimeSpan Median(this IEnumerable<TimeSpan> source) => TimeSpan.FromTicks(source.Median(x => x.Ticks));
 

@@ -2,7 +2,7 @@
 
 namespace Utils;
 
-public static class StreamUtils
+public static class StreamUtil
 {
     public static byte[] ToArray(this Stream stream, long offset = 0)
     {
