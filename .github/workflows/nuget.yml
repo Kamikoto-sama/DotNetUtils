@@ -3,6 +3,9 @@ name: Publish Kami.Utils
 on:
   push:
     branches: master
+    paths:
+      - .github/workflows/nuget.yml
+      - Kami.Utils/**
 
 env:
   VERSION: 0.0.0
