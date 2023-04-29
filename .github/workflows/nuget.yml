@@ -19,6 +19,6 @@ jobs:
       with:
         dotnet-version: '7.x'
     - name: Pack
-      run: "dotnet pack $PROJECT_PATH -o ./$PROJECT_NAME.nupkg -p:Version=$VERSION"
+      run: "dotnet pack $PROJECT_PATH -o ./$PROJECT_NAME.nupkg -p:Version=$VERSION -c Release"
     - name: Push
       run: "dotnet push ./$PROJECT_NAME.nupkg -s $NUGET_SOURCE -k ${{ secrets.NUGET_API_KEY }}"
