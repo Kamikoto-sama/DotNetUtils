@@ -4,18 +4,25 @@ on:
   push:
     branches: master
     paths:
-      - .github/workflows/nuget.yml
+      - .github/workflows/publish.yml
       - Kami.Utils/**
 
 env:
-  VERSION: 0.0.0
   PROJECT_NAME: Kami.Utils
   PROJECT_PATH: Kami.Utils/Kami.Utils.csproj
   NUGET_SOURCE: "https://nuget.danteiru.space"
 
 jobs:
+  tag:
+    name: Tag
+    uses: Kamikoto-sama/DotNetUtils/.github/workflows/tag.yml@master
+
   nuget:
+    name: Publish nuget
     runs-on: ubuntu-latest
+    needs: tag
+    env:
+      VERSION: "${{ needs.tag.outputs.semVer }}"
     steps:
     - uses: actions/checkout@v3.5.2
     - uses: actions/setup-dotnet@v3
