@@ -2,7 +2,7 @@
 
 namespace Kami.Utils;
 
-public static class HahSetExtensions
+public static class HashSetExtensions
 {
     public static void RemoveRange<T>(this HashSet<T> hashSet, IEnumerable<T> items)
     {

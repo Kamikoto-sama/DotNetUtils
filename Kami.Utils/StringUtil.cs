@@ -22,7 +22,7 @@ public static class StringExtensions
 
     public static bool IsSignificant([NotNullWhen(true)] this string? value) => !string.IsNullOrWhiteSpace(value);
 
-    public static string EnsureSignificant(this string? value, [CallerArgumentExpression("value")] string? name = null) =>
+    public static string EnsureSignificant(this string? value, [CallerArgumentExpression(nameof(value))] string? name = null) =>
         value.IsSignificant() ? value : throw new ArgumentNullException(name);
 
     public static int GetStableHashCode(this string str)
