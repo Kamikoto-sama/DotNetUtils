@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
+		<Version>7.0.0</Version>
 		<PackageId>Kami.Utils</PackageId>
 		<Title>Kami.Utils</Title>
 		<Authors>Kamikoto-sama</Authors>
@@ -11,7 +12,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/Kamikoto-sama/DotNetUtils</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Kamikoto-sama/DotNetUtils</RepositoryUrl>
-		<RootNamespace>Utils</RootNamespace>
+		<RootNamespace>Kami.Utils</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
