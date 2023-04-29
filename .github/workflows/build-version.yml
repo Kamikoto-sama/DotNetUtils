@@ -5,6 +5,10 @@ on:
     outputs:
       semVer:
         value: ${{ jobs.gitversion.outputs.semVer }}
+  push:
+    branches: master
+    paths:
+      - .github/workflows/build-version.yml
 
 jobs:
   gitversion:
