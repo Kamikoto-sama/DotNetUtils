@@ -16,6 +16,8 @@ jobs:
   tag:
     name: Tag
     uses: Kamikoto-sama/DotNetUtils/.github/workflows/tag.yml@master
+    permissions:
+      contents: write
 
   nuget:
     name: Publish nuget
