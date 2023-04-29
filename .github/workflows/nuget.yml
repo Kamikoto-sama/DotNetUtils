@@ -18,7 +18,9 @@ jobs:
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '7.x'
+    - name: Build
+      run: "dotnet build $PROJECT_PATH -c Release"
     - name: Pack
-      run: "dotnet pack $PROJECT_PATH -o ./$PROJECT_NAME.nupkg -p:Version=$VERSION -c Release"
+      run: "dotnet pack $PROJECT_PATH -o ./$PROJECT_NAME.nupkg -p:Version=$VERSION --no-build"
     - name: Push
       run: "dotnet push ./$PROJECT_NAME.nupkg -s $NUGET_SOURCE -k ${{ secrets.NUGET_API_KEY }}"
