@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utils;
+namespace Kami.Utils;
 
 public static class TimeSpanExtensions
 {

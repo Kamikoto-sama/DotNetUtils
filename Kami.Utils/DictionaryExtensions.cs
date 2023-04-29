@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Utils;
+namespace Kami.Utils;
 
 public static class DictionaryExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Utils;
+namespace Kami.Utils;
 
 public static class AsyncEnumerableExtensions
 {

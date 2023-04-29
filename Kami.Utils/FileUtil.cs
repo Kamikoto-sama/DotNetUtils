@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace Utils;
+namespace Kami.Utils;
 
 public static class FileUtil
 {
