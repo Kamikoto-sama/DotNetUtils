@@ -21,6 +21,6 @@ jobs:
     - name: Build
       run: "dotnet build $PROJECT_PATH -c Release"
     - name: Pack
-      run: "dotnet pack $PROJECT_PATH -o ./$PROJECT_NAME.nupkg -p:Version=$VERSION --no-build"
+      run: "dotnet pack $PROJECT_PATH -o ./$PROJECT_NAME.nupkg -p:Version=$VERSION --no-build -c Release"
     - name: Push
       run: "dotnet push ./$PROJECT_NAME.nupkg -s $NUGET_SOURCE -k ${{ secrets.NUGET_API_KEY }}"
