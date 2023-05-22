@@ -4,13 +4,11 @@ on:
   push:
     branches: master
     paths:
-      - .github/workflows/publish.yml
       - Kami.Utils/**
 
 env:
   PROJECT_NAME: Kami.Utils
   PROJECT_PATH: Kami.Utils/Kami.Utils.csproj
-  NUGET_SOURCE: "https://nuget.danteiru.space"
 
 jobs:
   tag:
@@ -35,4 +33,4 @@ jobs:
     - name: Pack
       run: "dotnet pack $PROJECT_PATH -o ./ -p:Version=$VERSION --no-build -c Release"
     - name: Push
-      run: "dotnet nuget push ./$PROJECT_NAME.$VERSION.nupkg -s $NUGET_SOURCE -k ${{ secrets.NUGET_API_KEY }}"
+      run: "dotnet nuget push ./$PROJECT_NAME.$VERSION.nupkg -s ${{ secrets.NUGET_SOURCE }} -k ${{ secrets.NUGET_API_KEY }}"
