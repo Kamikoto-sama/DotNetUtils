@@ -118,4 +118,24 @@ public static class EnumerableExtensions
     }
 
     public static IEnumerable<T> WhereNotDefault<T>(this IEnumerable<T> source) => source.WhereNotDefault(x => x);
+
+    /// <summary>
+    /// Splits sequence into subsequences of size <paramref name="batchSize"/> or less
+    /// </summary>
+    /// <param name="source">An <see cref="IEnumerable{T}"/> to split into subsequences</param>
+    /// <param name="batchSize">Size of subsequence</param>
+    /// <returns>Sequence of subsequences</returns>
+    public static IEnumerable<IEnumerable<T>> Batch<T>(this IEnumerable<T> source, int batchSize)
+    {
+        using var enumerator = source.GetEnumerator();
+        while (enumerator.MoveNext())
+            yield return Enumerate(enumerator, batchSize);
+
+        static IEnumerable<T> Enumerate(IEnumerator<T> enumerator, int batchSize)
+        {
+            yield return enumerator.Current;
+            for (var i = 0; i < batchSize && enumerator.MoveNext(); i++)
+                yield return enumerator.Current;
+        }
+    }
 }
