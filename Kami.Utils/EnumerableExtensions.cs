@@ -77,8 +77,29 @@ public static class EnumerableExtensions
         return hash;
     }
 
-    public static IEnumerable<T> WhereNotDefault<T>(this IEnumerable<T?> source)
+    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source) where T : class
     {
-        return source.Where(x => x?.Equals(default) == false);
+        foreach (var item in source)
+            if (item != null)
+                yield return item;
     }
+
+    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source) where T : struct
+    {
+        foreach (var item in source)
+            if (item.HasValue)
+                yield return item.Value;
+    }
+
+    public static IEnumerable<T1> WhereNotNull<T1, T2>(this IEnumerable<T1> source, Func<T1, T2> select) => source.Where(x => select(x) != null);
+
+    public static IEnumerable<T1> WhereNotDefault<T1, T2>(this IEnumerable<T1> source, Func<T1, T2> select)
+    {
+        var comparer = EqualityComparer<T2>.Default;
+        foreach (var item in source)
+            if (!comparer.Equals(select(item), default))
+                yield return item;
+    }
+
+    public static IEnumerable<T> WhereNotDefault<T>(this IEnumerable<T> source) => source.WhereNotDefault(x => x);
 }
