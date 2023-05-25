@@ -63,16 +63,32 @@ public static class EnumerableExtensions
         return counts;
     }
 
-    public static int SequenceGetHashCode<T>(this IEnumerable<T>? source, IEqualityComparer<T>? comparer = null)
+    /// <summary>
+    /// Combines hash codes of sequence elements with <see cref="HashCode.Combine{T1, T2}"/>
+    /// </summary>
+    /// <param name="source">An <see cref="IEnumerable{T}"/> to get hash code from</param>
+    /// <param name="getHashCode">Optional function to get hashcode of each element. If not specified, the <see cref="object.GetHashCode"/> will be used instead</param>
+    /// <returns>A hash code combined from all elements</returns>
+    /// <exception cref="ArgumentNullException">source is null</exception>
+    /// <exception cref="InvalidOperationException">source contains no elements or some elements are null and <paramref name="getHashCode"/> is not specified</exception>
+    public static int GetSequenceHashCode<T>(this IEnumerable<T>? source, Func<T, int>? getHashCode = null)
     {
-        comparer ??= EqualityComparer<T>.Default;
         using var enumerator = source?.GetEnumerator();
-        if (enumerator == null || !enumerator.MoveNext())
-            return 0;
+        if (enumerator == null)
+            throw new ArgumentNullException(nameof(source));
+        if (!enumerator.MoveNext())
+            throw new InvalidOperationException("Sequence contains no elements");
+        if (enumerator.Current == null && getHashCode == null)
+            throw new InvalidOperationException("Element is null");
 
-        var hash = comparer.GetHashCode(enumerator.Current);
+        var hash = getHashCode?.Invoke(enumerator.Current) ?? enumerator.Current!.GetHashCode();
         while (enumerator.MoveNext())
-            hash = HashCode.Combine(hash, comparer.GetHashCode(enumerator.Current));
+        {
+            if (enumerator.Current == null && getHashCode == null)
+                throw new InvalidOperationException("Element is null");
+            var itemHash = getHashCode?.Invoke(enumerator.Current) ?? enumerator.Current!.GetHashCode();
+            hash = HashCode.Combine(hash, itemHash);
+        }
 
         return hash;
     }
