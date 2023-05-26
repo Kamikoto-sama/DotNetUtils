@@ -21,10 +21,8 @@ public static class MathUtil
         return (items[middleIndex] + items[middleIndex - 1]) / (T.One + T.One);
     }
 
-    public static T? MaxOrDefault<T>(this IEnumerable<T> source) where T : INumber<T>
-    {
-        return BestOrDefault(source, (arg1, arg2) => arg1 > arg2);
-    }
+    public static T? MaxOrDefault<T>(this IEnumerable<T> source)
+        where T : INumber<T> => BestOrDefault(source, (arg1, arg2) => arg1 > arg2);
 
     public static T? BestOrDefault<T>(this IEnumerable<T> source, Func<T, T, bool> firstIsBetter) where T : INumber<T>
     {
@@ -41,5 +39,33 @@ public static class MathUtil
         }
 
         return best;
+    }
+
+    public static T Percentile<T>(this IEnumerable<T> data, double percentile) where T : IComparable<T>
+    {
+        var sortedData = data.Order().ToArray();
+        return GetItem(sortedData, percentile);
+    }
+
+    public static T[] Percentiles<T>(this IEnumerable<T> data, params double[] percentiles) where T : IComparable<T>
+    {
+        if (percentiles.Length == 0)
+            throw new ArgumentException("At least one percentile must be specified", nameof(percentiles));
+
+        var sortedData = data.Order().ToArray();
+        var result = new T[percentiles.Length];
+        for (var i = 0; i < percentiles.Length; i++)
+            result[i] = GetItem(sortedData, percentiles[i]);
+        return result;
+    }
+
+    private static T GetItem<T>(IReadOnlyList<T> sortedData, double percentile)
+    {
+        if (sortedData.Count == 0)
+            throw new ArgumentException("Data contains no elements");
+        if (percentile is < 0 or > 100)
+            throw new ArgumentException("Percentile must be >= 0 and <= 100");
+        var index = (int)Math.Ceiling(sortedData.Count * percentile / 100.0) - 1;
+        return sortedData[index];
     }
 }
