@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 
 namespace Kami.Utils;
 
-public class AsyncLock
+public class AsyncLock : IDisposable
 {
+    public bool Locked => semaphore.CurrentCount == 0;
+
     private readonly SemaphoreSlim semaphore = new(1, 1);
 
     public Task<IDisposable> Obtain() => Obtain(TimeSpan.MaxValue, default);
@@ -31,4 +33,6 @@ public class AsyncLock
 
         public void Dispose() => semaphore.Release();
     }
+
+    public void Dispose() => semaphore.Dispose();
 }
