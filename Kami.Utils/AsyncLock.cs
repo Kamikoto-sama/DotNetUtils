@@ -10,7 +10,7 @@ public class AsyncLock : IDisposable
 
     private readonly SemaphoreSlim semaphore = new(1, 1);
 
-    public Task<IDisposable> Obtain() => Obtain(TimeSpan.MaxValue, default);
+    public Task<IDisposable> Obtain() => Obtain(Timeout.InfiniteTimeSpan, default);
 
     public Task<IDisposable> Obtain(CancellationToken ct) => Obtain(Timeout.InfiniteTimeSpan, ct);
 
