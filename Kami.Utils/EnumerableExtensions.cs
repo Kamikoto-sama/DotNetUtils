@@ -138,4 +138,20 @@ public static class EnumerableExtensions
                 yield return enumerator.Current;
         }
     }
+
+    /// <summary>
+    /// Applies action to each item
+    /// </summary>
+    /// <param name="source">An <see cref="IEnumerable{T}"/> of items to apply action to</param>
+    /// <param name="action">Action to apply to each item</param>
+    /// <returns>Same sequence as source</returns>
+    public static IEnumerable<T> With<T>(this IEnumerable<T> source, Action<T, int> action)
+    {
+        var index = 0;
+        foreach (var item in source)
+        {
+            action(item, index++);
+            yield return item;
+        }
+    }
 }
