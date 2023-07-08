@@ -124,6 +124,7 @@ public static class EnumerableExtensions
     /// </summary>
     /// <param name="source">An <see cref="IEnumerable{T}"/> to split into subsequences</param>
     /// <param name="batchSize">Size of subsequence</param>
+    /// <remarks>Lazy implementation</remarks>
     /// <returns>Sequence of subsequences</returns>
     public static IEnumerable<IEnumerable<T>> Batch<T>(this IEnumerable<T> source, int batchSize)
     {
@@ -140,10 +141,10 @@ public static class EnumerableExtensions
     }
 
     /// <summary>
-    /// Applies action to each item
+    /// Applies <paramref name="action"/> to each item
     /// </summary>
     /// <param name="source">An <see cref="IEnumerable{T}"/> of items to apply action to</param>
-    /// <param name="action">Action to apply to each item</param>
+    /// <param name="action">Action to apply to each item with item index parameter</param>
     /// <returns>Same sequence as source</returns>
     public static IEnumerable<T> With<T>(this IEnumerable<T> source, Action<T, int> action)
     {
@@ -151,6 +152,28 @@ public static class EnumerableExtensions
         foreach (var item in source)
         {
             action(item, index++);
+            yield return item;
+        }
+    }
+
+    /// <summary>
+    /// Applies <paramref name="action"/> to each Nth item
+    /// </summary>
+    /// <param name="source">An <see cref="IEnumerable{T}"/> of items to apply action to</param>
+    /// <param name="n">The smallest common divisor of the element indexes for which to apply the action. Must be greater than zero</param>
+    /// <param name="action">Action to apply to each Nth item. With current item index parameter</param>
+    /// <returns>Same sequence as source</returns>
+    /// <exception cref="ArgumentException"><paramref name="n"/> is less or equal to zero</exception>
+    public static IEnumerable<T> WithNth<T>(this IEnumerable<T> source, int n, Action<T, int> action)
+    {
+        if (n <= 0)
+            throw new ArgumentException("Must be greater than zero", nameof(n));
+
+        var index = 0;
+        foreach (var item in source)
+        {
+            if (index++ % n == 0)
+                action(item, index);
             yield return item;
         }
     }
