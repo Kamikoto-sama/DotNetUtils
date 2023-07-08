@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kami.Utils", "Kami.Utils\Kami.Utils.csproj", "{A6509F58-EB3D-4E4E-AD05-98E66FA41BEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kami.Utils.Tests", "Kami.Utils.Tests\Kami.Utils.Tests.csproj", "{35384328-D676-4328-B226-5EC4888E26B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{A6509F58-EB3D-4E4E-AD05-98E66FA41BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6509F58-EB3D-4E4E-AD05-98E66FA41BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6509F58-EB3D-4E4E-AD05-98E66FA41BEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35384328-D676-4328-B226-5EC4888E26B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35384328-D676-4328-B226-5EC4888E26B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35384328-D676-4328-B226-5EC4888E26B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35384328-D676-4328-B226-5EC4888E26B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
