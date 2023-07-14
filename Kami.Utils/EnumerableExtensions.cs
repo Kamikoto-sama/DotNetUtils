@@ -177,4 +177,16 @@ public static class EnumerableExtensions
             yield return item;
         }
     }
+
+    public static bool StartsWith<T>(this IEnumerable<T> source, IEnumerable<T> comparisonSequence)
+    {
+        using var sourceEnumerator = source.GetEnumerator();
+        using var compSeqEnumerator = comparisonSequence.GetEnumerator();
+        while (compSeqEnumerator.MoveNext())
+            if (!sourceEnumerator.MoveNext() ||
+                sourceEnumerator.Current == null && compSeqEnumerator.Current == null ||
+                !sourceEnumerator.Current?.Equals(compSeqEnumerator.Current) == true)
+                return false;
+        return true;
+    }
 }
