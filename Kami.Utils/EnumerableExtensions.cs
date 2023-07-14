@@ -178,14 +178,21 @@ public static class EnumerableExtensions
         }
     }
 
-    public static bool StartsWith<T>(this IEnumerable<T> source, IEnumerable<T> comparisonSequence)
+    /// <summary>
+    /// Determines whether the beginning of the source sequence matches the specified comparison sequence.
+    /// </summary>
+    /// <param name="source">Source sequence</param>
+    /// <param name="comparisonSequence">Sequence to match with the beginning of the source sequence</param>
+    /// <param name="equalityComparer">Default: <see cref="EqualityComparer{T}.Default"/></param>
+    /// <returns>true if comparison sequence matches the beginning of the source sequence; otherwise, false.</returns>
+    public static bool StartsWith<T>(this IEnumerable<T> source, IEnumerable<T> comparisonSequence, IEqualityComparer<T>? equalityComparer = null)
     {
         using var sourceEnumerator = source.GetEnumerator();
         using var compSeqEnumerator = comparisonSequence.GetEnumerator();
+        equalityComparer ??= EqualityComparer<T>.Default;
+
         while (compSeqEnumerator.MoveNext())
-            if (!sourceEnumerator.MoveNext() ||
-                sourceEnumerator.Current == null && compSeqEnumerator.Current == null ||
-                !sourceEnumerator.Current?.Equals(compSeqEnumerator.Current) == true)
+            if (!sourceEnumerator.MoveNext() || !equalityComparer.Equals(sourceEnumerator.Current, compSeqEnumerator.Current))
                 return false;
         return true;
     }
