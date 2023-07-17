@@ -27,4 +27,20 @@ public class EnumerableExtensionsTests
 
         Assert.That(result, Is.EqualTo(expectedResult));
     }
+
+    [Test]
+    public void SelectMany_ActsAsLinqSelectMany()
+    {
+        var sequenceOfSequences = new[]
+        {
+            new[] { 1, 2, 3 },
+            new[] { 4, 5, 6 },
+            new[] { 7, 8, 9 }
+        };
+
+        var result = sequenceOfSequences.SelectMany();
+        var expected = sequenceOfSequences.SelectMany(x => x);
+
+        Assert.That(result, Is.EqualTo(expected));
+    }
 }

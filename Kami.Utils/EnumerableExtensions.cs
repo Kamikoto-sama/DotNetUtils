@@ -196,4 +196,9 @@ public static class EnumerableExtensions
                 return false;
         return true;
     }
+
+    /// <summary>
+    /// Shortcut for ".SelectMany(x => x)"
+    /// </summary>
+    public static IEnumerable<T> SelectMany<T>(this IEnumerable<IEnumerable<T>> source) => source.SelectMany(x => x);
 }
