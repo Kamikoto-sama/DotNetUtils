@@ -43,4 +43,16 @@ public class EnumerableExtensionsTests
 
         Assert.That(result, Is.EqualTo(expected));
     }
+
+    [Test]
+    public void Shuffle_ReturnsShuffledCollection()
+    {
+        var sourceArray = new[] { 1, 2, 3, 4, 5 };
+        var shuffledKeys = new[] { 3, 5, 1, 4, 2 };
+        var index = 0;
+
+        var shuffledArray = sourceArray.Shuffle(() => shuffledKeys[index++]);
+
+        Assert.That(shuffledArray, Is.EquivalentTo(shuffledKeys));
+    }
 }

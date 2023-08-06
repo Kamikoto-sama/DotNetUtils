@@ -201,4 +201,16 @@ public static class EnumerableExtensions
     /// Shortcut for ".SelectMany(x => x)"
     /// </summary>
     public static IEnumerable<T> SelectMany<T>(this IEnumerable<IEnumerable<T>> source) => source.SelectMany(x => x);
+
+    /// <summary>
+    /// Shuffles items using provided random int generator
+    /// </summary>
+    /// <param name="source">A sequence of items to shuffle</param>
+    /// <param name="getRandomInt">Random int provider. Calls for each item. By default is <see cref="Random.Next()"/></param>
+    /// <returns>An <see cref="IEnumerable{T}"/> whose elements are randomly ordered according to sequence returned from <code>getRandomInt</code></returns>
+    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, Func<int>? getRandomInt = null)
+    {
+        getRandomInt ??= Random.Shared.Next;
+        return source.OrderBy(_ => getRandomInt());
+    }
 }
