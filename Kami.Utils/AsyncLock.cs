@@ -6,7 +6,7 @@ namespace Kami.Utils;
 
 public class AsyncLock : IDisposable
 {
-    public bool Locked => semaphore.CurrentCount == 0;
+    public bool Locked => semaphore.CurrentCount == 1;
 
     private readonly SemaphoreSlim semaphore = new(1, 1);
 
