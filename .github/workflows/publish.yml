@@ -5,6 +5,7 @@ on:
     branches: master
     paths:
       - Kami.Utils/**
+  workflow_dispatch:
 
 env:
   PROJECT_NAME: Kami.Utils
