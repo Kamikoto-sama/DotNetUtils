@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Kami.Utils;
 
-public static class TaskUtil
+public static class TaskUtils
 {
     public static Task WhenAll(this IEnumerable<Task> tasks) => Task.WhenAll(tasks);
 

@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace Kami.Utils;
 
-public static class MathUtil
+public static class MathUtils
 {
     public static TimeSpan Median(this IEnumerable<TimeSpan> source) => TimeSpan.FromTicks(source.Median(x => x.Ticks));
 

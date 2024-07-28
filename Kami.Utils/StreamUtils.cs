@@ -2,7 +2,7 @@
 
 namespace Kami.Utils;
 
-public static class StreamUtil
+public static class StreamUtils
 {
     public static byte[] ToArray(this Stream stream, long offset = 0)
     {

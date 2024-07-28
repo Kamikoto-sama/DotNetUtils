@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Kami.Utils;
 
-public static class FileUtil
+public static class FileUtils
 {
     public static IEnumerable<string> Walk(string path)
     {
