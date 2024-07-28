@@ -25,4 +25,15 @@ public static class TaskUtils
     }
 
     public static Task WithTimeout(this Task task, TimeSpan timeout) => Task.WhenAny(task, Task.Delay(timeout));
+
+    public static async Task HandleCancellation(this Task task)
+    {
+        try
+        {
+            await task;
+        }
+        catch (TaskCanceledException)
+        {
+        }
+    }
 }
