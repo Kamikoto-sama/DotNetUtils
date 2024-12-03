@@ -36,4 +36,16 @@ public static class TaskUtils
         {
         }
     }
+
+    public static async Task<T> HandleCancellation<T>(this Task<T> task, T defaultValue)
+    {
+        try
+        {
+            return await task;
+        }
+        catch (TaskCanceledException)
+        {
+            return defaultValue;
+        }
+    }
 }
