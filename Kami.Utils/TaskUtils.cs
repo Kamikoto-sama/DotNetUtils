@@ -32,7 +32,7 @@ public static class TaskUtils
         {
             await task;
         }
-        catch (TaskCanceledException)
+        catch (OperationCanceledException)
         {
         }
     }
@@ -43,7 +43,7 @@ public static class TaskUtils
         {
             return await task;
         }
-        catch (TaskCanceledException)
+        catch (OperationCanceledException)
         {
             return defaultValue;
         }
