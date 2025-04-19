@@ -1,3 +1,5 @@
+using Kami.Utils.SynchronizationTools;
+
 namespace Kami.Utils.Tests;
 
 [TestFixture]
@@ -33,7 +35,7 @@ public class AsyncAutoResetEventTests
         var autoResetEvent = new AsyncAutoResetEvent(false);
         autoResetEvent.Dispose();
 
-        Assert.ThrowsAsync<ObjectDisposedException>(autoResetEvent.WaitAsync);
+        Assert.ThrowsAsync<ObjectDisposedException>(() => autoResetEvent.WaitAsync());
     }
     
     [Test]

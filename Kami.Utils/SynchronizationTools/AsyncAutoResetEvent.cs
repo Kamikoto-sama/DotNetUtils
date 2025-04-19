@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kami.Utils;
+namespace Kami.Utils.SynchronizationTools;
 
 public class AsyncAutoResetEvent(bool signaled) : IDisposable
 {
@@ -11,7 +11,7 @@ public class AsyncAutoResetEvent(bool signaled) : IDisposable
     private readonly Queue<TaskCompletionSource> waits = new();
     private bool signaled = signaled;
 
-    public Task WaitAsync()
+    public Task WaitAsync(CancellationToken token = default)
     {
         ObjectDisposedException.ThrowIf(cts.IsCancellationRequested, this);
         lock (waits)
@@ -23,6 +23,7 @@ public class AsyncAutoResetEvent(bool signaled) : IDisposable
             }
 
             var tcs = new TaskCompletionSource();
+            token.Register(tcs.SetCanceled);
             waits.Enqueue(tcs);
             return GetTask();
 
@@ -44,5 +45,9 @@ public class AsyncAutoResetEvent(bool signaled) : IDisposable
         toRelease?.TrySetResult();
     }
 
-    public void Dispose() => cts.Cancel();
+    public void Dispose()
+    {
+        cts.Cancel();
+        cts.Dispose();
+    }
 }

@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kami.Utils;
+namespace Kami.Utils.SynchronizationTools;
 
 public class AsyncLock : IDisposable
 {
